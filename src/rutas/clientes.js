@@ -4,7 +4,7 @@ const router = express.Router();
 const pool = require('../database');
 
 
-router.get('/taller/clientes', (req, res) => {
+router.get('/api/taller/clientes', (req, res) => {
     pool.query('SELECT * FROM cliente', (err, rows, fields) => {
         if(!err) {
             res.json(rows);
@@ -14,7 +14,7 @@ router.get('/taller/clientes', (req, res) => {
     });
 });
 
-router.get('/taller/clientes/:id', (req, res) => {
+router.get('/api/taller/clientes/:id', (req, res) => {
     const { id } = req.params;
     pool.query('SELECT * FROM cliente WHERE id_cliente= ?', [id], (err, rows, fields) => {
         if(!err) {
@@ -25,7 +25,7 @@ router.get('/taller/clientes/:id', (req, res) => {
     });
 });
 
-router.post('/taller/clientes', (req, res) => {
+router.post('/api/taller/clientes', (req, res) => {
     const { nombre, domicilio, telefono, rfc, email, foto } = req.body;
     pool.query('INSERT INTO cliente ( `nombre`, `domicilio`, `telefono`, `rfc`, `email`, `foto`) VALUES (?, ?, ?, ?, ?, ?)', [nombre, domicilio, telefono, rfc, email, foto], (err, rows, fields) => {
         if(!err) {

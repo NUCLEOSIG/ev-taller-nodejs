@@ -4,7 +4,7 @@ const router = express.Router();
 /* const mysqlConnection = require('../database') */
 const pool = require('../database');
 
-router.get('/taller/tecnicos', (req, res) => {
+router.get('/api/taller/tecnicos', (req, res) => {
     pool.query('SELECT * FROM tecnico', (err, rows, fields) => {
         if(!err) {
             res.json(rows);
@@ -14,7 +14,7 @@ router.get('/taller/tecnicos', (req, res) => {
     });
 });
 
-router.get('/taller/tecnicos/:id', (req, res) => {
+router.get('/api/taller/tecnicos/:id', (req, res) => {
     const { id } = req.params;
     pool.query('SELECT * FROM tecnico WHERE id_tecnico= ?', [id], (err, rows, fields) => {
         if(!err) {
@@ -25,7 +25,7 @@ router.get('/taller/tecnicos/:id', (req, res) => {
     });
 });
 
-router.post('/taller/tecnicos', (req, res) => {
+router.post('/api/taller/tecnicos', (req, res) => {
     const { nombre, domicilio, telefono, foto } = req.body;
     pool.query('INSERT INTO tecnico ( `nombre`, `domicilio`, `telefono`, `foto`) VALUES (?, ?, ?, ?)', [nombre, domicilio, telefono, foto], (err, rows, fields) => {
         if(!err) {
@@ -36,7 +36,7 @@ router.post('/taller/tecnicos', (req, res) => {
     });
 });
 
-/* router.put('/taller/tecnicos/:id', (req, res) => {
+/* router.put('/api/taller/tecnicos/:id', (req, res) => {
     const { nombre, domicilio, telefono, foto } = req.body;
     const { id } = req.params;
     mysqlConnection.query(`UPDATE tecnico SET nombre='${nombre}', domicilio='${domicilio}', telefono='${telefono}', foto='${foto}', WHERE id_tecnico= ?`, [id],  (err, rows, fields) => {
